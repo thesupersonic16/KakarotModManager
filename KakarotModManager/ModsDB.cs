@@ -368,6 +368,10 @@ namespace KakarotModManager
 
         public void Scan()
         {
+            if (!Directory.Exists(GetModsDirectory()))
+            {
+                Directory.CreateDirectory(GetModsDirectory());
+            }
             // Check if the mods folder is clean
             if (Directory.GetFiles(GetModsDirectory(), "*.pak", SearchOption.TopDirectoryOnly).Any())
             {
