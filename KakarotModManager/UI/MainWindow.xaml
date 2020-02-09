@@ -1,0 +1,156 @@
+﻿<Window x:Class="KakarotModManager.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:KakarotModManager"
+        mc:Ignorable="d" Loaded="MainWindow_OnLoaded"
+        Title="MainWindow" Height="500" Width="700" WindowStartupLocation="CenterScreen" Style="{StaticResource HedgeWindow}">
+    <Window.Resources>
+        <ContextMenu x:Key="ModContextMenu">
+            <MenuItem Header="Description" Click="DescMenuItem_OnClick"/>
+            <MenuItem Header="Open containing folder" Click="OCMFMenuItem_OnClick"/>
+            <MenuItem Header="Delete mod" Click="DeleteMenuItem_OnClick"/>
+        </ContextMenu>
+    </Window.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="50"/>
+        </Grid.RowDefinitions>
+        <Label x:Name="StatusLbl" Margin="0,-5,0,0" FontSize="12" HorizontalAlignment="Right" VerticalAlignment="Top"/>
+        <TabControl Margin="-4,0,-4,0">
+            <TabItem Header="Mods">
+                <Grid>
+                    <ListView x:Name="ModsList" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Foreground="White" Margin="12,5,12,5" ItemsSource="{Binding ModsDB.Mods}" AllowDrop="True" Drop="ModsList_OnDrop">
+                        <ListView.ItemContainerStyle>
+                            <Style TargetType="ListViewItem" BasedOn="{StaticResource {x:Type ListViewItem}}">
+                                <EventSetter Event="MouseDoubleClick" Handler="EventSetter_OnHandler"/>
+                                <Setter Property="ContextMenu" Value="{DynamicResource ModContextMenu}"/>
+                            </Style>
+                        </ListView.ItemContainerStyle>
+                        <ListView.View>
+                            <GridView>
+                                <GridViewColumn Header="Name" Width="340">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <StackPanel Orientation="Horizontal">
+                                                <CheckBox IsChecked="{Binding Enabled}" Margin="0,0,4,0"/>
+                                                <TextBlock TextAlignment="Right" Text="{Binding Title}"/>
+                                            </StackPanel>
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                                <GridViewColumn Header="Version" Width="100">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <TextBlock TextAlignment="Center" Text="{Binding Version}"/>
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                                <GridViewColumn Header="Author" Width="150">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <TextBlock TextAlignment="Center" Text="{Binding Author}"/>
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                                <GridViewColumn Header="Updateable" Width="78">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <TextBlock TextAlignment="Center" Text="{Binding CanUpdateText}"/>
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
+                </Grid>
+            </TabItem>
+            <TabItem Header="About">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="64"/>
+                        <RowDefinition Height="50"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="34"/>
+                    </Grid.RowDefinitions>
+                    <StackPanel Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Center" Grid.Column="0" Grid.ColumnSpan="2" Margin="0,0,0,0">
+                        <Image Width="64" Height="64" Source="/Resources/Graphics/icon256.png"/>
+                        <Label Content="KakarotModManager" Height="Auto" Width="Auto" FontSize="36"/>
+                    </StackPanel>
+                    <Label Content="A simple mod manager for Dragon Ball Z Kakarot" HorizontalAlignment="Center" VerticalAlignment="Top" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Margin="0,0,0,0"/>
+                    <GroupBox Header="KakarotModManager Credits:" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.Row="2" Margin="15,0,15,4" Grid.Column="0">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="0.4*"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <StackPanel Grid.Column="0">
+                                <Label Content="SuperSonic16"/>
+                                <Label Content="Sajid"/>
+                                <Label Content="Radfordhound"/>
+                                <Label Content="Purple Heart"/>
+                            </StackPanel>
+                            <StackPanel Grid.Column="1">
+                                <Label Content="Writing the manager"/>
+                                <Label Content="HedgeModManager submodule"/>
+                                <Label Content="HedgeModManager base design"/>
+                                <Label Content="KakarotModManager Icon"/>
+                            </StackPanel>
+                        </Grid>
+                    </GroupBox>
+                    <GroupBox Header="HedgeModManager Credits:" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.Row="2" Margin="15,0,15,4" Grid.Column="1">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="0.4*"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <StackPanel Grid.Column="0">
+                                <Label Content="SuperSonic16"/>
+                                <Label Content="Sajid"/>
+                                <Label Content="Radfordhound"/>
+                                <Label Content="Korama"/>
+                                <Label Content="Skyth"/>
+                                <Label Content="PTKickass"/>
+                                <Label Content="Slash"/>
+                                <Label Content="MainMemory"/>
+                            </StackPanel>
+                            <StackPanel Grid.Column="1">
+                                <Label Content="Managing the project"/>
+                                <Label Content="Writing 7.0"/>
+                                <Label Content="Base Design"/>
+                                <Label Content="CPKREDIR"/>
+                                <Label Content="Contributing to Forces Mod Loader"/>
+                                <Label Content="Cheat codes"/>
+                                <Label Content="Contributing to the project"/>
+                                <Label Content="mod-loader-common"/>
+                            </StackPanel>
+                        </Grid>
+                    </GroupBox>
+
+                    <Button Content="GitHub Project" HorizontalAlignment="Left" Margin="226.667,3.333,0,0" VerticalAlignment="Top" Width="112" Click="OpenGitHubProjectButton_OnClick"  Height="23" Grid.Row="3" Grid.Column="1"/>
+                </Grid>
+            </TabItem>
+        </TabControl>
+        <StackPanel VerticalAlignment="Top" Grid.Row="1">
+            <Grid Margin="0,0,0,0" VerticalAlignment="Bottom" Height="50">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <Button Content="Open Mods Directory" Width="Auto" Grid.Column="0" Margin="5" Click="OpenModsButton_Click" />
+                <Button Content="Refresh Mod List"             Width="Auto" Grid.Column="1" Margin="5" Click="RefreshButton_Click" />
+                <Button Content="Save"                             Grid.Column="2" Margin="5" Click="SaveButton_Click" />
+                <Button Content="Save and Play"       Width="Auto" Grid.Column="3" Margin="5" Click="SaveAndPlayButton_Click" />
+            </Grid>
+        </StackPanel>
+    </Grid>
+</Window>
