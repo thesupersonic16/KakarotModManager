@@ -81,7 +81,7 @@ namespace KakarotModManager
             var downloader = new HedgeModManager.DownloadWindow($"Downloading {mod.ModName}", URI, Path.GetFileName(URI));
             downloader.DownloadCompleted = new Action(() =>
             {
-                if (!ModsDB.InstallKMMMod(Path.GetFileName(URI), mod))
+                ModsDB.InstallKMMMod(Path.GetFileName(URI), mod);
                 File.Delete(Path.GetFileName(URI));
                 Close();
             });
