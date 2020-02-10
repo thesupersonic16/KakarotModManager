@@ -65,7 +65,10 @@ namespace KakarotModManager
 
                     var soundFolder = new DirectoryInfo(Path.Combine(RootDirectory, "Sound"));
 
-                    Paks = Directory.GetFiles(RootDirectory, "*.pak*", SearchOption.AllDirectories).Select(t=>t.Replace(".disabled", "")).ToList();
+                    Directory.GetFiles(RootDirectory, "*.pak.disabled", SearchOption.AllDirectories).ToList().ForEach(t => File.Move(t, t.Replace(".pak.disabled", ".disabled")));
+                    Paks = new List<string>();
+                    Paks.AddRange(Directory.GetFiles(RootDirectory, "*.pak", SearchOption.AllDirectories));
+                    Paks.AddRange(Directory.GetFiles(RootDirectory, "*.disabled", SearchOption.AllDirectories).Select(t => t.Replace(".disabled", ".pak")).ToList());
                     AudioMod = Directory.Exists(Path.Combine(RootDirectory, "Sound"));
                 }
             }

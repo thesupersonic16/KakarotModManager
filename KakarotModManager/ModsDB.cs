@@ -49,7 +49,7 @@ namespace KakarotModManager
                     foreach (string path in mod.Paks)
                     {
                         if (File.Exists(path))
-                            File.Move(path, path + ".disabled");
+                            File.Move(path, Path.ChangeExtension(path, ".disabled"));
                     }
 
                     if (mod.AudioMod && mod.Title == ActiveAudioMod)
@@ -78,8 +78,8 @@ namespace KakarotModManager
                 {
                     foreach (string path in mod.Paks)
                     {
-                        if (File.Exists(path + ".disabled"))
-                            File.Move(path + ".disabled", path);
+                        if (File.Exists(Path.ChangeExtension(path, ".disabled")))
+                            File.Move(Path.ChangeExtension(path, ".disabled"), path);
                     }
 
                     if (mod.AudioMod)
@@ -384,7 +384,7 @@ namespace KakarotModManager
                 {
                     foreach (string path in Directory.GetFiles(GetModsDirectory(), "*.pak", SearchOption.TopDirectoryOnly))
                     {
-                        File.Move(path, path + ".disabled");
+                        File.Move(path, Path.ChangeExtension(path, ".disabled"));
                     }
                     box.Close();
                 });
@@ -396,7 +396,7 @@ namespace KakarotModManager
                     }
                     foreach (string path in Directory.GetFiles(GetModsDirectory(), "*.pak", SearchOption.TopDirectoryOnly))
                     {
-                        File.Move(path, path + ".disabled");
+                        File.Move(path, Path.ChangeExtension(path,  ".disabled"));
                     }
                     box.Close();
                 });
