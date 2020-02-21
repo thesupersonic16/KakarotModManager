@@ -153,8 +153,6 @@ namespace KakarotModManager
                     CurrentGame = game;
                     CurrentSteamGame = steamGame;
                     StartDirectory = steamGame.RootDirectory;
-                    RegistryConfig.LastGameDirectory = StartDirectory;
-                    RegistryConfig.Save();
                 }
             }
         }
