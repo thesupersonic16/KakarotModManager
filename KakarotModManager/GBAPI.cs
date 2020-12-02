@@ -13,7 +13,6 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System.Runtime.Serialization;
 using GameBananaAPI;
-using HedgeModManager.UI;
 
 namespace KakarotModManager
 {
@@ -55,14 +54,14 @@ namespace KakarotModManager
 
             if (!int.TryParse(split[2], out int itemID))
             {
-                HedgeModManager.App.CreateOKMessageBox("Error", $"Invalid Gamebanana item id {itemID}").ShowDialog();
+                App.CreateOKMessageBox("Error", $"Invalid Gamebanana item id {itemID}").ShowDialog();
                 return;
             }
 
             var item = new GBAPIItemDataBasic(itemType, itemID);
             if (!GameBananaAPI.GBAPI.RequestItemData(ref item))
             {
-                HedgeModManager.App.CreateOKMessageBox("Error", "Invalid Gamebanana item").ShowDialog();
+                App.CreateOKMessageBox("Error", "Invalid Gamebanana item").ShowDialog();
                 return;
             }
             var game = Games.Unknown;

@@ -184,6 +184,19 @@ namespace KakarotModManager
             return (hasUpdate, info);
         }
 
+        public static HedgeMessageBox CreateOKMessageBox(string header, string message)
+        {
+            var box = new HedgeMessageBox(header, message);
+            box.AddButton("OK", () => box.Close());
+            return box;
+        }
+
+        // https://stackoverflow.com/questions/11660184/c-sharp-check-if-run-as-administrator
+        public static bool RunningAsAdmin()
+        {
+            return new WindowsPrincipal(WindowsIdentity.GetCurrent()).IsInRole(WindowsBuiltInRole.Administrator);
+        }
+
         private void Minimize_Click(object sender, RoutedEventArgs e)
         {
             var window = Window.GetWindow((DependencyObject)sender);

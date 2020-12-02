@@ -72,7 +72,7 @@ namespace KakarotModManager
                     var info = update.Item2;
                     var dialog = new HedgeMessageBox(info.Name, info.Body, HorizontalAlignment.Right, TextAlignment.Left, InputType.MarkDown);
 
-                    dialog.AddButton("Update", () =>
+                    dialog.AddButton("      Update      ", () =>
                     {
                         if (info.Assets.Count > 0)
                         {

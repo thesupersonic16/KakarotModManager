@@ -66,7 +66,7 @@ namespace KakarotModManager
                     if (!string.IsNullOrEmpty(ActiveAudioMod) && mod.Title != ActiveAudioMod)
                     {
                         mod.Enabled = false;
-                        HedgeModManager.App.CreateOKMessageBox("Audio Mod Warning",
+                        App.CreateOKMessageBox("Audio Mod Warning",
                             "Currently only one audio mod can be enabled at a time due to how mods are written.\n\n" +
                             $"The mod \"{mod.Title}\" has been disabled to prevent conflicts with \"{ActiveAudioMod}\".").ShowDialog();
                         continue;
@@ -126,14 +126,12 @@ namespace KakarotModManager
         public static void InstallMod(string path, GBAPIItemDataBasic gbmod = null, bool move = false)
         {
             var box = new HedgeMessageBox("Installing non-KMM mod",
-                $"The mod {Path.GetFileName(path)} does not contain\n" +
-                $"any information about itself, KMM can generate this information\n" +
-                $"for the time being but if you are the developer, \n" +
-                $"manually creating a mod.ini file is recommended\n\n" +
-                $"Do you want KMM to try and install this mod?\n\n");
+                $"The mod {Path.GetFileName(path)} does not contain a mod.ini file,\n" +
+                $"KMM will automatically generate this information.\n\n" +
+                $"Would you like to continue?\n\n");
 
-            box.AddButton("No", () => box.Close());
-            box.AddButton("Yes", () =>
+            box.AddButton("    No    ", () => box.Close());
+            box.AddButton("    Yes    ", () =>
             {
                 string modPath = Path.Combine(GetModsDirectory(), Path.GetFileNameWithoutExtension(path));
                 Directory.CreateDirectory(modPath);
@@ -186,7 +184,7 @@ namespace KakarotModManager
                 {
                     var box = new HedgeMessageBox("ERROR", "Failed to install mods using 7-Zip and WinRAR!\n" +
                         "Make sure you have either one installed on your system.");
-                    box.AddButton("  Close  ", () => box.Close());
+                    box.AddButton("    Close    ", () => box.Close());
                     box.ShowDialog();
                 }
             return false;
@@ -380,7 +378,7 @@ namespace KakarotModManager
                     "KakarotModManager can not handle mods installed in this way\n" +
                     "but can be converted to work. Would you like to perform the conversion?\n\n" +
                     "Note: Selecting No will disable all mod(s)!");
-                box.AddButton("No", () =>
+                box.AddButton("    No    ", () =>
                 {
                     foreach (string path in Directory.GetFiles(GetModsDirectory(), "*.pak", SearchOption.TopDirectoryOnly))
                     {
@@ -388,7 +386,7 @@ namespace KakarotModManager
                     }
                     box.Close();
                 });
-                box.AddButton("Yes", () =>
+                box.AddButton("    Yes    ", () =>
                 {
                     foreach (string path in Directory.GetFiles(GetModsDirectory(), "*.pak", SearchOption.TopDirectoryOnly))
                     {

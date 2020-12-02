@@ -14,7 +14,6 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using GameBananaAPI;
 using HedgeModManager.Controls;
-using Game = HedgeModManager.Game;
 
 namespace KakarotModManager
 {

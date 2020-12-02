@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:KakarotModManager"
         xmlns:wpf="clr-namespace:TheArtOfDev.HtmlRenderer.WPF;assembly=HtmlRenderer.WPF"
-        xmlns:controls="clr-namespace:HedgeModManager.Controls;assembly=HedgeModManager"
+        xmlns:controls="clr-namespace:HedgeModManager.Controls"
         mc:Ignorable="d"
         Title="{Binding ModName, FallbackValue=Name}" Height="600" Width="900" Style="{DynamicResource HedgeWindow}" WindowStartupLocation="CenterScreen" Loaded="Window_Loaded">
     <Grid>

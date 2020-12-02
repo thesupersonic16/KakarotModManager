@@ -55,7 +55,7 @@
                                         </DataTemplate>
                                     </GridViewColumn.CellTemplate>
                                 </GridViewColumn>
-                                <GridViewColumn Header="Updateable" Width="78">
+                                <GridViewColumn Header="Updatable" Width="78">
                                     <GridViewColumn.CellTemplate>
                                         <DataTemplate>
                                             <TextBlock TextAlignment="Center" Text="{Binding CanUpdateText}"/>

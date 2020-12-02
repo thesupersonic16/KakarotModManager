@@ -44,7 +44,7 @@ namespace KakarotModManager
             body.AppendLine($"    Version: {App.VersionString}");
             body.AppendLine($"    Args: {string.Join(" ", App.Args)}");
             body.AppendLine($"    StartDir: {App.StartDirectory}");
-            body.AppendLine($"    Process Level: " + (HedgeModManager.App.RunningAsAdmin() ? "Administrator" : "User"));
+            body.AppendLine($"    Process Level: " + (App.RunningAsAdmin() ? "Administrator" : "User"));
             try
             {
                 body.AppendLine($"    Game: {App.CurrentGame}");
