@@ -46,11 +46,11 @@
     <Reference Include="Costura, Version=4.1.0.0, Culture=neutral, PublicKeyToken=9919ef960d84173d, processorArchitecture=MSIL">
       <HintPath>..\packages\Costura.Fody.4.1.0\lib\net40\Costura.dll</HintPath>
     </Reference>
-    <Reference Include="HtmlRenderer">
-      <HintPath>..\HedgeModManager\HedgeModManager\Externals\HtmlRenderer.dll</HintPath>
+    <Reference Include="HtmlRenderer, Version=1.5.0.5, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\HtmlRenderer.Core.1.5.0.5\lib\net45\HtmlRenderer.dll</HintPath>
     </Reference>
-    <Reference Include="HtmlRenderer.WPF">
-      <HintPath>..\HedgeModManager\HedgeModManager\Externals\HtmlRenderer.WPF.dll</HintPath>
+    <Reference Include="HtmlRenderer.WPF, Version=1.5.0.6, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\HtmlRenderer.WPF.1.5.0.6\lib\net45\HtmlRenderer.WPF.dll</HintPath>
     </Reference>
     <Reference Include="Markdig, Version=0.18.1.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Markdig.0.18.1\lib\net40\Markdig.dll</HintPath>
@@ -66,6 +66,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.IO.Compression.FileSystem" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
