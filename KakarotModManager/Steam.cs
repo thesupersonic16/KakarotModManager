@@ -50,9 +50,20 @@ namespace KakarotModManager
             paths.Add(Path.Combine(SteamLocation, "steamapps\\common"));
 
             // Adds all the custom libraries
-            foreach (var library in SteamVDF.GetContainer(vdf, "LibraryFolders"))
-                if (int.TryParse(library.Key, out int index))
-                    paths.Add(Path.Combine(library.Value as string, "steamapps\\common"));
+            var container = SteamVDF.GetContainer(vdf, "LibraryFolders");
+            if (container != null)
+            {
+                foreach (var library in container)
+                {
+                    if (int.TryParse(library.Key, out int index))
+                    {
+                        if (library.Value is Dictionary<string, object> libraryInfo)
+                            paths.Add(Path.Combine(libraryInfo["path"] as string ?? string.Empty, "steamapps\\common"));
+                        else
+                            paths.Add(Path.Combine(library.Value as string ?? string.Empty, "steamapps\\common"));
+                    }
+                }
+            }
 
             foreach (string path in paths)
             {
@@ -94,7 +105,7 @@ namespace KakarotModManager
         {
             foreach (var value in containers)
             {
-                if (value.Key == name)
+                if (string.Compare(value.Key, name, StringComparison.InvariantCultureIgnoreCase) == 0)
                 {
                     return value.Value as Dictionary<string, object>;
                 }
@@ -120,13 +131,13 @@ namespace KakarotModManager
             bool doReadString = false;
             char c;
 
-            ReadContainers(defs);
-            return defs;
+            return ReadContainers() ?? new Dictionary<string, object>();
 
             // Sub-Methods
-            void ReadContainers(Dictionary<string, object> parent)
+            Dictionary<string, object> ReadContainers()
             {
-                Dictionary<string, object> container = null;
+                List<Dictionary<string, object>> containers = new List<Dictionary<string, object>>();
+                containers.Add(new Dictionary<string, object>());
                 string name = "";
                 nm = str = "";
 
@@ -155,38 +166,29 @@ namespace KakarotModManager
                                 }
                                 else
                                 {
-                                    if (container != null)
-                                        container.Add(nm, str);
-                                    else
-                                        parent.Add(nm, str);
-
+                                    if (containers.Count != 0)
+                                        containers.Last().Add(nm, str);
                                     nm = str = "";
                                 }
                             }
                         }
                         else if (c == '{')
                         {
-                            if (container == null)
-                            {
-                                container = new Dictionary<string, object>();
-                                name = nm;
-                            }
-                            else
-                            {
-                                var subContainer = new Dictionary<string, object>();
-                                ReadContainers(subContainer);
-                                container.Add(nm, subContainer);
-                            }
-
+                            var container = new Dictionary<string, object>();
+                            containers.Last().Add(nm, container);
+                            containers.Add(container);
+                            name = nm;
                             nm = "";
                         }
                         else if (c == '}')
                         {
-                            if (container != null)
+                            if (containers.Count != 0)
                             {
-                                parent.Add(name, container);
-                                container = null;
+                                var container = containers.Last();
+                                containers.Remove(container);
                             }
+                            else
+                                throw new Exception("Invalid VDF format!");
                         }
                         else if (doReadString)
                         {
@@ -194,6 +196,7 @@ namespace KakarotModManager
                         }
                     }
                 }
+                return containers.FirstOrDefault();
             }
         }
     }
